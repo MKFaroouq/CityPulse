@@ -171,5 +171,5 @@ npm install </pre>
 <hr>
 
 👨‍💻 Contributors </br>
-<h3> Mohammed Faroouq (Bazooka) </h3> </br>
-<h3> Project 3.0 </h3> </br>
+<h3> Mohammed Faroouq (Bazooka) </h3>
+<h3> Project 3.0 </h3>
