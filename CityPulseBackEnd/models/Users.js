@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     lowercase: true,
+    trim: true,
     match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   },
   password: {
@@ -31,15 +32,8 @@ const userSchema = new mongoose.Schema({
       trim: true,
       default: null,
     },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  },{timestamps: true,}
+);
 
 const User = mongoose.model('User', userSchema);
 
