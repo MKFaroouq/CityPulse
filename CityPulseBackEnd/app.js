@@ -9,6 +9,9 @@ dotenv.config();
 // Initialize Express app
 const app = express();
 
+// Middleware
+app.use(express.json());
+
 // Port and database
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/citypulse';
