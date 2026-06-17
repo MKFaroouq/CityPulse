@@ -1,5 +1,6 @@
 const User = require('../models/Users');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Register a new user
 const registerUser = async (req , res)=>{
@@ -43,7 +44,7 @@ const registerUser = async (req , res)=>{
     }
     catch(error){
         console.error('Error registering user:', error);
-        return res.status(500).json({ message: 'Internal server error' });
+        return res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 }
 
@@ -68,13 +69,33 @@ const loginUser = async (req, res) => {
         return res.status(401).json({message: "Invalid password"});
     }
         // If login is successful, return a success message or token
+        console.log("---------------------------");
         console.log("Login successful");
         console.log(`email : ${user.email}`);
         console.log(`name : ${user.name}`);  
         console.log(`password : ${user.password}`);
         console.log(`role : ${user.role}`);             
         console.log(`createdAt : ${user.createdAt} - updatedAt : ${user.updatedAt}`);
-        return res.status(200).json({message: "Login successful"});
+        console.log("---------------------------");       
+
+        const token = jwt.sign(
+            { id: user._id , role: user.role },
+             process.env.JWT_SECRET || "MSSK159357", 
+             { expiresIn: '30d' });
+
+        // show the token in the console for testing purposes
+        console.log(`Generated token: ${token}`);
+
+        return res.status(200).json({
+            message: "Login successful",
+            token: token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+            }
+        }); 
 
     }
     catch(error){
@@ -83,10 +104,27 @@ const loginUser = async (req, res) => {
     }
 
 }
+
+const getAllUser = async (req, res) => {
+    try {
+        const users = await User.find().select("-password"); // Exclude password field from the response
+        // Check if users were not found
+        if (!users || users.length === 0) {
+            return res.status(404).json({ message: 'No users found' });
+        }
+        return res.status(200).json(users);
+    }
+    catch (error) {
+        console.error('Error fetching users:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
 module.exports = 
 { 
     registerUser,
-    loginUser
+    loginUser,
+    getAllUser,
 
  };
 

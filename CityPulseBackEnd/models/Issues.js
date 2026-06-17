@@ -9,14 +9,24 @@ const issueSchema = new mongoose.Schema({
   },
   description: {
     type: String,
+    // required: true,
+    trim: true,
+  },
+    location: {
+    type: String,
     required: true,
     trim: true,
   },
   status: {
     type: String,
-    enum: ['open', 'in-progress', 'resolved'],
-    default: 'open',
+    enum: ['Open', 'In-progress', 'Resolved'],
+    default: 'Open',
   },
+severity: {
+    type: String,
+    enum: ['Low', 'Medium', 'Critical'],
+    default: 'Low',
+  },  
   reportedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -29,3 +39,5 @@ const issueSchema = new mongoose.Schema({
   },
 },{timestamps: true,}
 );
+
+module.exports = mongoose.model('Issue', issueSchema);
