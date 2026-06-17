@@ -76,9 +76,7 @@ const loginUser = async (req, res) => {
         console.log(`password : ${user.password}`);
         console.log(`role : ${user.role}`);             
         console.log(`createdAt : ${user.createdAt} - updatedAt : ${user.updatedAt}`);
-<<<<<<< HEAD
         return res.status(200).json({message: "Login successful"});
-=======
         console.log("---------------------------");       
 
         const token = jwt.sign(
@@ -99,7 +97,6 @@ const loginUser = async (req, res) => {
                 role: user.role,
             }
         }); 
->>>>>>> 842916b9b4f1864e09a112a348c80519a06b2709
 
     }
     catch(error){

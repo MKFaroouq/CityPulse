@@ -16,25 +16,19 @@ const { protectKey, adminOnly } = require('../controllers/authMiddleware');
 
 
 // Register route
-<<<<<<< HEAD
 router.post("/register", registerUser);
 // register get
 router.get("/register", registerUser);
-=======
 router.post("/register", protectKey, adminOnly, registerUser);
 // register get
 // router.get("/register", adminOnly, protectKey, registerUser);
->>>>>>> 842916b9b4f1864e09a112a348c80519a06b2709
 
 // Login route
 router.post("/login", loginUser);
 // login get
 // router.get("/login", loginUser);
-<<<<<<< HEAD
-=======
 
 // Get all users route
 router.get("/users", protectKey, adminOnly, getAllUser);
->>>>>>> 842916b9b4f1864e09a112a348c80519a06b2709
 
 module.exports = router;
