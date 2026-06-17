@@ -12,8 +12,12 @@ const {loginUser} = require("../controllers/authController");
 
 // Register route
 router.post("/register", registerUser);
+// register get
+router.get("/register", registerUser);
 
 // Login route
 router.post("/login", loginUser);
+// login get
+// router.get("/login", loginUser);
 
 module.exports = router;

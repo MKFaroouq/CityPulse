@@ -69,6 +69,11 @@ const loginUser = async (req, res) => {
     }
         // If login is successful, return a success message or token
         console.log("Login successful");
+        console.log(`email : ${user.email}`);
+        console.log(`name : ${user.name}`);  
+        console.log(`password : ${user.password}`);
+        console.log(`role : ${user.role}`);             
+        console.log(`createdAt : ${user.createdAt} - updatedAt : ${user.updatedAt}`);
         return res.status(200).json({message: "Login successful"});
 
     }
