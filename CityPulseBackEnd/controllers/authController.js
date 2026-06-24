@@ -5,8 +5,15 @@ const jwt = require('jsonwebtoken');
 // Register a new user
 const registerUser = async (req , res)=>{
 
-    const { email , password , name , role, sector } = req.body; 
+    const { email , password , name , role } = req.body; 
     try{
+
+        // Validate required fields
+        if (!email || !password || !name )
+        {
+           console.log('Missing required fields');
+           return res.status(400).json({ message: 'Missing required fields' }); 
+        }
         // check if user already exist:
 
         //                === deprecated ===
@@ -20,7 +27,7 @@ const registerUser = async (req , res)=>{
 
         // check if user already exist:
         const existingUser = await User.findOne({ email });
-        if ( existingUser ) {
+        if (existingUser ) {
             console.log('User already exists');
             return res.status(400).json({ message: 'User already exists' });
         }
@@ -33,15 +40,26 @@ const registerUser = async (req , res)=>{
             email,
             password: hashedPassword,
             name,
-            role,
-            sector: sector || null
+            role
         });
 
         // Save the new user to the database
         await newUser.save();
         console.log('User registered successfully');
         return res.status(201).json({ message: 'User registered successfully' });
+
+    // printing all things that saves to database in the console for testing purposes
+    console.log("---------------------------");
+    console.log("User registered successfully");
+    console.log(`email : ${newUser.email}`);
+    console.log(`name : ${newUser.name}`);  
+    console.log(`password : ${newUser.password}`);
+    console.log(`role : ${newUser.role}`);             
+    console.log(`createdAt : ${newUser.createdAt} - updatedAt : ${newUser.updatedAt}`);
+    console.log("---------------------------");       
+
     }
+
     catch(error){
         console.error('Error registering user:', error);
         return res.status(500).json({ message: 'Internal server error', error: error.message });
@@ -76,7 +94,6 @@ const loginUser = async (req, res) => {
         console.log(`password : ${user.password}`);
         console.log(`role : ${user.role}`);             
         console.log(`createdAt : ${user.createdAt} - updatedAt : ${user.updatedAt}`);
-        return res.status(200).json({message: "Login successful"});
         console.log("---------------------------");       
 
         const token = jwt.sign(
@@ -113,6 +130,11 @@ const getAllUser = async (req, res) => {
         if (!users || users.length === 0) {
             return res.status(404).json({ message: 'No users found' });
         }
+        console.log('Users fetched successfully');
+        console.log('----------------------------');
+        console.log(users)
+        console.log('----------------------------');
+
         return res.status(200).json(users);
     }
     catch (error) {

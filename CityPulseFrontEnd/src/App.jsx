@@ -2,6 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';import Login from '../components/Login'; 
 import Register from '../components/Register';
 import ReportIssue from '../components/ReportIssue';
+import AdminDashboard from '../components/AdminDashboard';
+import AdminUsers from '../components/AdminUsers';
+import AdminIssuesList from '../components/AdminIssuesList';
+import RegisterEngineer from '../components/RegisterEngineer';
 
 // 🔒 البواب بتاع الفرونت إند (بيسمح فقط لليوزر العادي بالدخول)
 const UserRoute = ({ children }) => {
@@ -29,6 +33,13 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/report-issue" element={<ReportIssue />} />
+        <Route path="/dashboard" element={<AdminDashboard />} />
+        <Route path="*" element={<Login />} />  
+        <Route path="/users" element={<AdminUsers />} />     
+        <Route path="/admin-issues-list" element={<AdminIssuesList />} /> 
+        <Route path="/registerEngineer" element={<RegisterEngineer />} />
+
+
       </Routes>
     </Router>
   );

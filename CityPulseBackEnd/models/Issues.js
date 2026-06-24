@@ -22,11 +22,23 @@ const issueSchema = new mongoose.Schema({
     enum: ['Open', 'In-progress', 'Resolved'],
     default: 'Open',
   },
+ image: {
+  type: String,
+  default: null // هيكون عبارة عن مسار الصورة على السيرفر
+}, 
 severity: {
     type: String,
     enum: ['Low', 'Medium', 'Critical'],
     default: 'Low',
   },  
+  latitude: {
+    type: Number,
+    default: null
+  },
+  longitude: {
+    type: Number,
+    default: null
+  },
   reportedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -37,6 +49,11 @@ severity: {
     ref: 'User',
     default: null,
   },
+  assignmentStatus: {
+      type: String,
+      enum: ['Unassigned', 'Assigned'],
+      default: 'Unassigned'
+  }  
 },{timestamps: true,}
 );
 

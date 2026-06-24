@@ -1,27 +1,24 @@
 // Required packages
 // Environment variables
 const express = require('express');
+// Initialize Express app
+const app = express();
+const cors = require('cors');
+// Enable CORS for all routes
+app.use(cors());
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
+
 const dotenv = require('dotenv');
 dotenv.config();
 const mongoose = require('mongoose');
-const cors = require('cors');
+
 const issueRoutes = require('./routes/issueRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 
-
-// Initialize Express app
-const app = express();
-
-// Enable CORS for all routes
-app.use(cors());
-
-
-
-
-
-// Middleware
-app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
